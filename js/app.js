@@ -8,7 +8,6 @@
 const startBtn = document.getElementById("start-btn");
 
 const instructionRow = document.getElementById("instruction-row");
-const countDown = document.getElementById("count-down");
 
 const numbersRow = document.getElementById("numbers-row");
 
@@ -35,8 +34,11 @@ const hide = (element) => {
 
 // GAMES VARIABLE
 let level = 5;
+let countDown = 30;
 let numbers = [];
 let userNumbers = [];
+let interval;
+
 
 // GAME SCRIPT: FIRST PART
 const startGame = () => {
@@ -55,11 +57,20 @@ const startGame = () => {
     show(numbersRow);
 
     // Set Istructions
-    instructionRow.innerHTML = `<h1>Remember these numbers in <span id="count-down">30</span> seconds</h1>`;
+    instructionRow.innerHTML = `<h1>Memorize these numbers in <span id="count-down">${countDown}</span> seconds</h1>`;
+
+    // Count down
+    interval = setInterval(() => {
+        document.getElementById("count-down").innerHTML = --countDown;
+
+    }, 1000);
     
     // 3. set a timer of 30 seconds
     setTimeout( () => {
-    
+        
+        // Stop count down
+        clearInterval(interval);
+
         // Hide instrucionRow and numberRow
         hide(numbersRow);
         // Show inputsRow and submitBtn
@@ -77,7 +88,7 @@ const startGame = () => {
             inputsRow.innerHTML += `<input type="text" name="number">`;
         }
     
-    }, 3000);
+    }, 30000);
 }
 
 // GAME SCRIPT: SECOND PART
@@ -93,14 +104,10 @@ const endGame = () => {
     // Hide inputsRow and submitRow
     hide(inputsRow);
     hide(submitBtn);
-    hide(instructionRow)
 
     // Show results
     show(results);
     show(restartBtn);
-    
-    // Set Istructions
-    instructionRow.innerHTML = "";
 
     // 5. comunicate each error to the user
     let noMistakes = true;
@@ -109,28 +116,28 @@ const endGame = () => {
             noMistakes = false;
             switch (i) {
                 case 0: 
-                    results.innerHTML += "<div>The 1st number is wrong</div>";
+                    results.innerHTML += `<div class="error">The 1st number is wrong</div>`;
                     break;
                 case 1: 
-                    results.innerHTML += "<div>The 2nd number is wrong</div>";
+                    results.innerHTML += `<div class="error">The 2nd number is wrong</div>`;
                     break;
                 case 2: 
-                    results.innerHTML += "<div>The 3rd number is wrong</div>";
+                    results.innerHTML += `<div class="error">The 3rd number is wrong</div>`;
                     break;
                 default: 
-                    results.innerHTML += `<div>The ${i + 1}th number is wrong</div>`;
+                    results.innerHTML += `<div class="error">The ${i + 1}th number is wrong</div>`;
             }
         }
     }
     
     // Show the result
     if ( noMistakes ) {
-        results.innerHTML = "<h2>Well done!!!</h2>" + results.innerHTML;
+        instructionRow.innerHTML = "<h1>Well done!!!</h1>";
 
         // If user wins the game add 1 level
         level++;
     } else {
-        results.innerHTML = "<h2>Try again</h2>" + results.innerHTML;
+        instructionRow.innerHTML = "<h1>Try again</h1>";
     }
 }
 

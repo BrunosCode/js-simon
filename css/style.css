@@ -22,18 +22,17 @@
     flex-flow: wrap row;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem;
+    margin: 1.5rem 0;
 }
 .col {
     display: flex;
     flex-flow: column;
     justify-content: center;
     align-items: center;
-    margin: 1rem;
 }
 
 .btn {
-    margin: 2rem;
+    margin: 1.5rem;
     padding: .5rem 1.5rem;
     border-radius: 2rem;
     border: none;
@@ -46,6 +45,10 @@
 .btn:hover {
     box-shadow: none;
     cursor: pointer;
+}
+
+.error {
+    margin: .25rem 0;
 }
 
 .numbers > *,
