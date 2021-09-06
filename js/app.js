@@ -4,7 +4,7 @@
 // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
 
 let level = 0;
-let levelNumbers = level + 5;
+let levelNumbers = level + 1;
 
 // 1. generate random number
 const randomNumber = (min, max) => {
@@ -26,37 +26,41 @@ setTimeout( () => {
     for (let i = 0; i < levelNumbers; i++) {
         switch (i) {
             case 0: 
-                numbers.push(+prompt("Tell me the 1st number"));
+                userNumbers.push(+prompt("Tell me the 1st number"));
                 break;
             case 1: 
-                numbers.push(+prompt("Tell me the 2nd number"));
+                userNumbers.push(+prompt("Tell me the 2nd number"));
                 break;
             case 2: 
-                numbers.push(+prompt("Tell me the 3rd number"));
+                userNumbers.push(+prompt("Tell me the 3rd number"));
                 break;
             default: 
-                numbers.push(+prompt(`Tell me the ${i + 1}th number`));
+                userNumbers.push(+prompt(`Tell me the ${i + 1}th number`));
         }
     }
 
     // 5. comunicate the result of the test to the user
+    let noMistakes = true;
     for (let i = 0; i < levelNumbers; i++) {
-        switch (i) {
-            case 0: 
-                alert("The 1st number is wrong");
-                break;
-            case 1: 
-                alert("The 2nd number is wrong");
-                break;
-            case 2: 
-                alert("The 3rd number is wrong");
-                break;
-            default: 
-                alert(`The ${i + 1}th number is wrong`);
+        if ( userNumbers[i] !== numbers[i] ) {
+            noMistakes = false;
+            switch (i) {
+                case 0: 
+                    alert("The 1st number is wrong");
+                    break;
+                case 1: 
+                    alert("The 2nd number is wrong");
+                    break;
+                case 2: 
+                    alert("The 3rd number is wrong");
+                    break;
+                default: 
+                    alert(`The ${i + 1}th number is wrong`);
+            }
         }
     }
 
-    if ( numbers === userNumbers ) {
+    if ( noMistakes ) {
         alert("Well done!!!");
         level++;
     } else {
