@@ -34,7 +34,7 @@ const hide = (element) => {
 
 // GAMES VARIABLE
 let level = 5;
-let countDown = 30;
+let maximumValue = 9;
 let numbers = [];
 let userNumbers = [];
 let interval;
@@ -43,9 +43,15 @@ let interval;
 // GAME SCRIPT: FIRST PART
 const startGame = () => {
 
+    // if the user wins 5 rounds, random number will be from 0 to 19
+    if ( level >= 10 ) {
+        level = 5;
+        maximumValue += 10
+    }
+
     numbers = [];
     for (let i = 0; i < level; i++) {
-        let number = randomNumber(0, 9);
+        let number = randomNumber(0, maximumValue);
         numbers.push(number);
         numbersRow.innerHTML += `<div>${number}</div>`;
     }
@@ -57,6 +63,7 @@ const startGame = () => {
     show(numbersRow);
 
     // Set Istructions
+    let countDown = 30;
     instructionRow.innerHTML = `<h1>Memorize these numbers in <span id="count-down">${countDown}</span> seconds</h1>`;
 
     // Count down
